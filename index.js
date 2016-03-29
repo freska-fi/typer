@@ -57,7 +57,11 @@ module.exports = {
 
       case 'date':
       case 'datetime':
-        value = new Date(value);
+        if (typeof moment === undefined) {
+          value = value === null ? null : new Date(value);
+        } else {
+          value = value === null ? null : moment(value);
+        }
         break;
 
       case 'int':
@@ -75,7 +79,7 @@ module.exports = {
         break;
 
       default:
-        throw new Error('Expected valid casting type.');
+        console.log('Error, expected valid casting type.');
     }
 
     return value;
